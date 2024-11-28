@@ -4,10 +4,9 @@ import axios from 'axios';
 
 const ProductDataForm = () => {
     const [formData, setFormData] = useState({
-        id: '',
-        produto: '',
-        categoria: '',
-        preco: ''
+        name: '',
+        stock: '',
+        price: ''
     });
 
     const [responseMessage, setResponseMessage] = useState('');
@@ -24,32 +23,21 @@ const ProductDataForm = () => {
     // Tratar o salvar dados
     const handleSave = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('authToken');
+            
+        if (!token) {
+            setResponseMessage('Usuário não autenticado');
+            return;
+        }
+
         try {
-            const response = await axios.post('/api/products', formData);
-            setResponseMessage(response.data.message);
-            handleClear();
+            const response = await axios.post('http://127.0.0.1:8080/products/newProduct/', formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }});
+            setResponseMessage('Produto salvo com sucesso');
         } catch (error) {
             setResponseMessage('Erro ao salvar o produto');
-        }
-    };
-
-    const handleClear = () => {
-        setFormData({
-            id: '',
-            produto: '',
-            categoria: '',
-            preco: ''
-        });
-        setResponseMessage('');
-    };
-
-    const handleSearch = async () => {
-        try {
-            const response = await axios.get(`/api/products/${formData.id}`);
-            setFormData(response.data);
-            setResponseMessage('');
-        } catch (error) {
-            setResponseMessage('Produto não encontrado');
         }
     };
 
@@ -58,31 +46,21 @@ const ProductDataForm = () => {
             <h3>Cadastro de Produtos</h3>
             <form onSubmit={handleSave}>
                 <div className='form-group'>
-                    <label>ID:</label>
+                    <label>Nome do produto:</label>
                     <input
                         type='text'
-                        name='id'
-                        value={formData.id}
+                        name='name'
+                        value={formData.name}
                         onChange={handleChange}
                         className='form-control'
                     />
                 </div>
                 <div className='form-group'>
-                    <label>Produto:</label>
+                    <label>Estoque disponível:</label>
                     <input
-                        type='text'
-                        name='produto'
-                        value={formData.produto}
-                        onChange={handleChange}
-                        className='form-control'
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Categoria:</label>
-                    <input
-                        type='text'
-                        name='categoria'
-                        value={formData.categoria}
+                        type='number'
+                        name='stock'
+                        value={formData.stock}
                         onChange={handleChange}
                         className='form-control'
                     />
@@ -90,16 +68,14 @@ const ProductDataForm = () => {
                 <div className='form-group'>
                     <label>Preço:</label>
                     <input
-                        type='text'
-                        name='preco'
-                        value={formData.preco}
+                        type='number'
+                        name='price'
+                        value={formData.price}
                         onChange={handleChange}
                         className='form-control'
                     />
                 </div>
                 <button type='submit' className='btn btn-primary'onClick={handleSave}>Salvar</button>
-                <button type='button' className='btn btn-secondary' onClick={handleClear}>Limpar</button>
-                <button type='button' className='btn btn-info' onClick={handleSearch}>Buscar</button>
             </form>
             {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
         </div>

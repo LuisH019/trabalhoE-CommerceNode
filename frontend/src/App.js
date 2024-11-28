@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
@@ -7,8 +7,18 @@ import UserLogin from './UserLogin';
 import UserLogout from './UserLogout';
 import UserList from './UserList';
 
+import ProductDataForm from './ProductDataForm';
+import ProductSearch from './ProductSearch';
+
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Verifica se o token está presente no localStorage quando o componente monta
+    const token = localStorage.getItem('authToken');
+    setAuthenticated(token !== null);
+  }, []);
 
   const handleNavClick = (page) => {
     setCurrentPage(page);
@@ -21,19 +31,31 @@ function App() {
         <a className="navbar-brand" href="#">Loja Loja</a>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de Usuários</button>
-            </li>
-            <li className="nav-item">
-              <button className="nav-link btn" onClick={() => handleNavClick('createAccount')}>Criar conta</button>
-            </li>
-            <li className="nav-item">
-              <button className="nav-link btn" onClick={() => handleNavClick('login')}>Login</button>
-            </li>
-            <li className="nav-item">
-              <button className="nav-link btn" onClick={() => handleNavClick('logout')}>Sair</button>
-            </li>
-            
+            {authenticated ? (
+              <>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de Usuários</button>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('logout')}>Sair</button>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('newProduct')}>Novo produto</button>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('searchProduct')}>Procurar produto</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('createAccount')}>Criar conta</button>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('login')}>Login</button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
@@ -47,27 +69,34 @@ function App() {
         )}
         {currentPage === 'userList' && (
           <div className="mt-4">
-            <UserList/>
+            <UserList />
           </div>
         )}
         {currentPage === 'createAccount' && (
           <div className="mt-4">
-            <UserAccountForm/>
+            <UserAccountForm />
           </div>
         )}
-
         {currentPage === 'login' && (
           <div className="mt-4">
-            <UserLogin/>
+            <UserLogin />
           </div>
         )}
-
         {currentPage === 'logout' && (
           <div className="mt-4">
-            <UserLogout/>
+            <UserLogout />
           </div>
         )}
-        
+        {currentPage === 'newProduct' && (
+          <div className="mt-4">
+            <ProductDataForm />
+          </div>
+        )}
+        {currentPage === 'searchProduct' && (
+          <div className="mt-4">
+            <ProductSearch />
+          </div>
+        )}
       </div>
     </div>
   );
