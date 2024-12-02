@@ -65,45 +65,46 @@ const UserAccountForm = () => {
 
     return (
         <div className="user-account-form">
-            <h2>Crie sua conta de usuário</h2>
+            <h2>Cadstre sua conta</h2>
             <form onSubmit={handleSubmit} className="form-group">
-                <div>
-                    <label>Email:</label>
-                    <input 
-                        className="form-control"
-                        type="email" 
-                        name="email" 
-                        value={formData.email} 
-                        onChange={handleChange} 
-                        required 
-                    />
+                <div className='text-start'>
+                    <div>
+                        <label>Email:</label>
+                        <input 
+                            className="form-control"
+                            type="email" 
+                            name="email" 
+                            value={formData.email} 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>Data Nascimento:</label>
+                        <input 
+                            className="form-control"
+                            type="text" 
+                            name="dataNascimento" 
+                            value={formData.dataNascimento} 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>Senha:</label>
+                        <input 
+                            className="form-control"
+                            type="password" 
+                            name="password" 
+                            value={formData.password} 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label>Data Nascimento:</label>
-                    <input 
-                        className="form-control"
-                        type="text" 
-                        name="dataNascimento" 
-                        value={formData.dataNascimento} 
-                        onChange={handleChange} 
-                        required 
-                    />
-                </div>
-                <div>
-                    <label>Senha:</label>
-                    <input 
-                        className="form-control"
-                        type="password" 
-                        name="password" 
-                        value={formData.password} 
-                        onChange={handleChange} 
-                        required 
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary btn-block mt-3">Criar Conta</button>
+                <button type="submit" className="btn btn-primary btn-block mt-3">Cadastrar</button>
             </form>
-            {responseMessage && <p>{responseMessage}</p>}
-        </div>
+            {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}        </div>
     );
 };
 

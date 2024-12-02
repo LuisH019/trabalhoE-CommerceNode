@@ -45,35 +45,37 @@ const ProductDataForm = () => {
         <div className='user-account-form'>
             <h3>Cadastro de Produtos</h3>
             <form onSubmit={handleSave}>
-                <div className='form-group'>
-                    <label>Nome do produto:</label>
-                    <input
-                        type='text'
-                        name='name'
-                        value={formData.name}
-                        onChange={handleChange}
-                        className='form-control'
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Estoque disponível:</label>
-                    <input
-                        type='number'
-                        name='stock'
-                        value={formData.stock}
-                        onChange={handleChange}
-                        className='form-control'
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Preço:</label>
-                    <input
-                        type='number'
-                        name='price'
-                        value={formData.price}
-                        onChange={handleChange}
-                        className='form-control'
-                    />
+                <div className='text-start'>
+                    <div className='form-group'>
+                        <label>Nome do produto:</label>
+                        <input
+                            type='text'
+                            name='name'
+                            value={formData.name}
+                            onChange={handleChange}
+                            className='form-control'
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Estoque disponível:</label>
+                        <input
+                            type='number'
+                            name='stock'
+                            value={formData.stock}
+                            onChange={handleChange}
+                            className='form-control'
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Preço:</label>
+                        <input
+                            type='number'
+                            name='price'
+                            value={formData.price}
+                            onChange={handleChange}
+                            className='form-control'
+                        />
+                    </div>
                 </div>
                 <button type='submit' className='btn btn-primary btn-block mt-3'onClick={handleSave}>Salvar</button>
             </form>

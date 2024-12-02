@@ -4,8 +4,14 @@ import axios from 'axios';
 const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
+    const [authenticated, setAuthenticated] = useState(false);
+    const [responseMessage, setResponseMessage] = useState('');
+
 
     useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        setAuthenticated(token !== null);
+
         const fetchProducts = async () => {
 
             try {
@@ -16,7 +22,28 @@ const ProductList = () => {
             }
         };
         fetchProducts();
+
+        
     }, []);
+
+    const handleAddItemToCart = async (idProduct) =>{
+        const token = localStorage.getItem('authToken');
+            
+        if (!token) {
+            setResponseMessage('Usuário não autenticado');
+            return;
+        }
+
+        try {
+            await axios.post(`http://127.0.0.1:8080/cart/addItem?id=${localStorage.getItem('idUser')}&idProduct=${idProduct}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }});
+            
+        } catch (error) {
+            setResponseMessage('Erro ao deletar produto');
+        }
+    }
 
     return (
         <div>
@@ -43,6 +70,10 @@ const ProductList = () => {
                                     <h6 className='card-subtitle mb-2 text-muted'>
                                         Estoque: {product.stock}
                                     </h6>
+
+                                    {authenticated &&
+                                        <button className='btn btn-primary btn-block mt-3' onClick={()=>handleAddItemToCart(product.idProduct)}>Adcionar ao carrinho</button>
+                                    }
                                 </div>
                             </div>
                         </div>

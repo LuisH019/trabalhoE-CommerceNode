@@ -37,10 +37,6 @@ function App() {
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
                 </li>
-                
-                <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('productList')}>Lista de produtos</button>
-                </li>
 
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('newProduct')}>Novo produto</button>
@@ -71,10 +67,11 @@ function App() {
 
       {/* Main Content */}
       <div className="container d-flex text-center mt-5 justify-content-center">
-        <div class="w-50 bg-light p-4 border rounded shadow-sm text-left">
+        <div class="w-50 bg-light p-4 border rounded shadow-sm">
           {currentPage === 'landing' && (
             <div>
               <h1 className="display-4">Loja Loja</h1>
+              <ProductList/>
             </div>
           )}
           {currentPage === 'userList' && (
@@ -97,11 +94,7 @@ function App() {
               <UserLogout />
             </div>
           )}
-          {currentPage === 'productList' && (
-            <div className="mt-4">
-              <ProductList />
-            </div>
-          )}
+          
           {currentPage === 'newProduct' && (
             <div className="mt-4">
               <ProductDataForm />

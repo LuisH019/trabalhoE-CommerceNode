@@ -25,6 +25,7 @@ const UserLogin = () => {
             
             if(response.status === 200 && response.data.Token){
                 localStorage.setItem('authToken', response.data.Token);
+                localStorage.setItem('idUser', response.data.id)
                 setResponseMessage('Login efetuado com sucesso!');
                 setTimeout(() => {
                     window.location.reload();
@@ -41,31 +42,33 @@ const UserLogin = () => {
         <div className="user-account-form">
             <h2>Login</h2>
             <form onSubmit={handleSubmit} className="form-group">
-                <div>
-                    <label>Email:</label>
-                    <input
-                        className="form-control"
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Senha:</label>
-                    <input
-                        className="form-control"
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className='text-start'>
+                    <div>
+                        <label>Email:</label>
+                        <input
+                            className="form-control"
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Senha:</label>
+                        <input
+                            className="form-control"
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
                 <button type="submit" className="btn btn-primary btn-block mt-3">Login</button>
             </form>
-            {responseMessage && <p>{responseMessage}</p>}
+            {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
         </div>
     );
 };
