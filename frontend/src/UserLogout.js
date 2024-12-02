@@ -1,4 +1,3 @@
-// Logout.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -8,21 +7,17 @@ const UserLogout = () => {
     useEffect(() => {
         const logoutUser = async () => {
             try {
-                const token = localStorage.getItem('authToken');
-            
-                if (!token) {
-                    setError('Usuário não autenticado');
-                    return;
-                }
-                
-                await axios.post('http://localhost:8080/users/logout/');
-                
+                localStorage.removeItem('authToken');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+
             } catch (error) {
-                console.error('Failed to logout', error);
+                setError('Falha ao realizar logout');
             }
         };
         logoutUser();
-    }, []);
+    }, []); 
 
     return (
         <div>

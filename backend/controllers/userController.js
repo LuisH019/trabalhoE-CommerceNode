@@ -39,10 +39,22 @@ class UserController {
 
     async login (req, res){
         const {email, password} = req.body;
-        
+
         try{
             const User = await this.userService.login(email, password);
             res.status(200).json(User)
+        }
+        catch (error){
+            res.status(500).json({error: 'Erro ao logar o usuário.'})
+        }
+    }
+
+    async logout (req, res){
+        const token = req.headers['authorization'].split(' ')[1];
+        
+        try{
+            await this.userService.logout(token);
+            res.status(200)
         }
         catch (error){
             res.status(500).json({error: 'Erro ao logar o usuário.'})

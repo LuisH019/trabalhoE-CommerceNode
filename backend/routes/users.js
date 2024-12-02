@@ -20,6 +20,10 @@ router.post('/login', async (req, res)=>{
   userController.login(req, res);
 });
 
+router.post('/logout', auth.verifyToken, async (req, res)=>{
+  userController.logout(req, res);
+});
+
 router.post('/novouser', async (req, res)=>{
   userController.createUser(req, res);
 });

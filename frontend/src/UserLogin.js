@@ -26,6 +26,9 @@ const UserLogin = () => {
             if(response.status === 200 && response.data.Token){
                 localStorage.setItem('authToken', response.data.Token);
                 setResponseMessage('Login efetuado com sucesso!');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 setResponseMessage('Erro ao realizar o login.');
             }

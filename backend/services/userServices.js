@@ -64,6 +64,15 @@ class UserServices{
             throw error;
         }
     }
+
+    async logout (token){
+        try {
+            await auth.invalidateToken(token);
+        }
+        catch(error){
+            throw error;
+        }
+    }
 }
 
 module.exports = UserServices;

@@ -8,9 +8,9 @@ const ProductSearch = () => {
     });
 
     const [responseMessage, setResponseMessage] = useState('');
-    const [product, setProduct] = useState(null); // Alterar para armazenar um único produto
+    const [product, setProduct] = useState(null);
+    const [isEditing, setIsEditing] = useState(false); // Estado para controlar a edição
 
-    // Tratar o evento change dos campos do form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -49,7 +49,7 @@ const ProductSearch = () => {
                     'Authorization': `Bearer ${token}`
                 }});
             if (response.data) {
-                setProduct(response.data);
+                setProduct(null);
                 setResponseMessage('Produto deletado com sucesso!');
             } else {
                 setProduct(null);
@@ -57,8 +57,46 @@ const ProductSearch = () => {
             }
         } catch (error) {
             setProduct(null);
-            setResponseMessage('Erro ao buscar produto');
+            setResponseMessage('Erro ao deletar produto');
         }
+    };
+
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveEdit = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('authToken');
+            
+        if (!token) {
+            setResponseMessage('Usuário não autenticado');
+            return;
+        }
+
+        try {
+            const response = await axios.put(`http://127.0.0.1:8080/products/updateProduct?id=${formData.idProduct}`, product, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }});
+            if (response.data) {
+                setProduct(response.data);
+                setResponseMessage('Produto atualizado com sucesso!');
+                setIsEditing(false);
+            } else {
+                setResponseMessage('Erro ao atualizar produto');
+            }
+        } catch (error) {
+            setResponseMessage('Erro ao atualizar produto');
+        }
+    };
+
+    const handleEditChange = (e) => {
+        const { name, value } = e.target;
+        setProduct({
+            ...product,
+            [name]: value,
+        });
     };
 
     return (
@@ -78,7 +116,7 @@ const ProductSearch = () => {
                 <button type='button' className='btn btn-info' onClick={handleSearch}>Buscar</button>
             </form>
             {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
-            {product && (
+            {product && !isEditing && (
                 <div>
                     <h4>Detalhes do Produto</h4> 
                     <p>ID: {product.idProduct}</p> 
@@ -87,9 +125,46 @@ const ProductSearch = () => {
                     <p>Preço: {product.price}</p>
 
                     <button type='button' className='btn btn-danger' onClick={handleDelete}>Apagar</button>
+                    <button type='button' className='btn btn-warning' onClick={handleEdit}>Editar</button>
                 </div>
-
-                
+            )}
+            {product && isEditing && (
+                <div>
+                    <h4>Editar Produto</h4>
+                    <form onSubmit={handleSaveEdit}>
+                        <div className='form-group'>
+                            <label>Nome do produto:</label>
+                            <input
+                                type='text'
+                                name='name'
+                                value={product.name}
+                                onChange={handleEditChange}
+                                className='form-control'
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <label>Estoque disponível:</label>
+                            <input
+                                type='number'
+                                name='stock'
+                                value={product.stock}
+                                onChange={handleEditChange}
+                                className='form-control'
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <label>Preço:</label>
+                            <input
+                                type='number'
+                                name='price'
+                                value={product.price}
+                                onChange={handleEditChange}
+                                className='form-control'
+                            />
+                        </div>
+                        <button type='submit' className='btn btn-primary'>Salvar</button>
+                    </form>
+                </div>
             )}
         </div>
     );

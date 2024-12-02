@@ -9,6 +9,7 @@ import UserList from './UserList';
 
 import ProductDataForm from './ProductDataForm';
 import ProductSearch from './ProductSearch';
+import ProductList from './ProductList';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -34,16 +35,23 @@ function App() {
             {authenticated ? (
               <>
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de Usuários</button>
+                  <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
                 </li>
+                
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('logout')}>Sair</button>
+                  <button className="nav-link btn" onClick={() => handleNavClick('productList')}>Lista de produtos</button>
                 </li>
+
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('newProduct')}>Novo produto</button>
                 </li>
+
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('searchProduct')}>Procurar produto</button>
+                </li>
+
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('logout')}>Sair</button>
                 </li>
               </>
             ) : (
@@ -51,6 +59,7 @@ function App() {
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('createAccount')}>Criar conta</button>
                 </li>
+
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('login')}>Login</button>
                 </li>
@@ -85,6 +94,11 @@ function App() {
         {currentPage === 'logout' && (
           <div className="mt-4">
             <UserLogout />
+          </div>
+        )}
+        {currentPage === 'productList' && (
+          <div className="mt-4">
+            <ProductList />
           </div>
         )}
         {currentPage === 'newProduct' && (
