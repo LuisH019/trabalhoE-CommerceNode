@@ -39,7 +39,7 @@ const UserLogin = () => {
 
     return (
         <div className="user-account-form">
-            <h3>Crie sua conta de usuário</h3>
+            <h2>Login</h2>
             <form onSubmit={handleSubmit} className="form-group">
                 <div>
                     <label>Email:</label>

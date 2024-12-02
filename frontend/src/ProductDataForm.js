@@ -75,7 +75,7 @@ const ProductDataForm = () => {
                         className='form-control'
                     />
                 </div>
-                <button type='submit' className='btn btn-primary'onClick={handleSave}>Salvar</button>
+                <button type='submit' className='btn btn-primary btn-block mt-3'onClick={handleSave}>Salvar</button>
             </form>
             {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
         </div>

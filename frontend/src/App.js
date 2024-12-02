@@ -70,47 +70,49 @@ function App() {
       </nav>
 
       {/* Main Content */}
-      <div className="container text-center mt-5">
-        {currentPage === 'landing' && (
-          <div>
-            <h1 className="display-4">Loja Loja</h1>
-          </div>
-        )}
-        {currentPage === 'userList' && (
-          <div className="mt-4">
-            <UserList />
-          </div>
-        )}
-        {currentPage === 'createAccount' && (
-          <div className="mt-4">
-            <UserAccountForm />
-          </div>
-        )}
-        {currentPage === 'login' && (
-          <div className="mt-4">
-            <UserLogin />
-          </div>
-        )}
-        {currentPage === 'logout' && (
-          <div className="mt-4">
-            <UserLogout />
-          </div>
-        )}
-        {currentPage === 'productList' && (
-          <div className="mt-4">
-            <ProductList />
-          </div>
-        )}
-        {currentPage === 'newProduct' && (
-          <div className="mt-4">
-            <ProductDataForm />
-          </div>
-        )}
-        {currentPage === 'searchProduct' && (
-          <div className="mt-4">
-            <ProductSearch />
-          </div>
-        )}
+      <div className="container d-flex text-center mt-5 justify-content-center">
+        <div class="w-50 bg-light p-4 border rounded shadow-sm text-left">
+          {currentPage === 'landing' && (
+            <div>
+              <h1 className="display-4">Loja Loja</h1>
+            </div>
+          )}
+          {currentPage === 'userList' && (
+            <div className="mt-4">
+              <UserList />
+            </div>
+          )}
+          {currentPage === 'createAccount' && (
+            <div className="mt-4">
+              <UserAccountForm />
+            </div>
+          )}
+          {currentPage === 'login' && (
+            <div className="mt-4">
+              <UserLogin />
+            </div>
+          )}
+          {currentPage === 'logout' && (
+            <div className="mt-4">
+              <UserLogout />
+            </div>
+          )}
+          {currentPage === 'productList' && (
+            <div className="mt-4">
+              <ProductList />
+            </div>
+          )}
+          {currentPage === 'newProduct' && (
+            <div className="mt-4">
+              <ProductDataForm />
+            </div>
+          )}
+          {currentPage === 'searchProduct' && (
+            <div className="mt-4">
+              <ProductSearch />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

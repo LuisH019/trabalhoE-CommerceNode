@@ -36,6 +36,17 @@ const UserAccountForm = () => {
             
             if(response.status === 200){
                 setResponseMessage('Conta criada!');
+
+                const response = await axios.post('http://localhost:8080/users/login', formData);
+            
+                if(response.status === 200 && response.data.Token){
+                    localStorage.setItem('authToken', response.data.Token);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    setResponseMessage('Erro ao realizar o login.');
+                }
             }
             else{
                 setResponseMessage('Erro ao criar a conta.');
@@ -54,7 +65,7 @@ const UserAccountForm = () => {
 
     return (
         <div className="user-account-form">
-            <h3>Crie sua conta de usuário</h3>
+            <h2>Crie sua conta de usuário</h2>
             <form onSubmit={handleSubmit} className="form-group">
                 <div>
                     <label>Email:</label>
@@ -89,7 +100,7 @@ const UserAccountForm = () => {
                         required 
                     />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block mt-3">Create Account</button>
+                <button type="submit" className="btn btn-primary btn-block mt-3">Criar Conta</button>
             </form>
             {responseMessage && <p>{responseMessage}</p>}
         </div>

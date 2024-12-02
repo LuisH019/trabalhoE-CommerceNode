@@ -101,7 +101,7 @@ const ProductSearch = () => {
 
     return (
         <div className='product-account-form'>
-            <h3>Cadastro de Produtos</h3>
+            <h3>Procura de Produto</h3>
             <form onSubmit={e => e.preventDefault()}>
                 <div className='form-group'>
                     <label>ID do produto:</label>
@@ -113,7 +113,7 @@ const ProductSearch = () => {
                         className='form-control'
                     />
                 </div>
-                <button type='button' className='btn btn-info' onClick={handleSearch}>Buscar</button>
+                <button type='button' className='btn btn-info btn-block mt-3' onClick={handleSearch}>Buscar</button>
             </form>
             {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
             {product && !isEditing && (
@@ -124,8 +124,8 @@ const ProductSearch = () => {
                     <p>Estoque: {product.stock}</p> 
                     <p>Preço: {product.price}</p>
 
-                    <button type='button' className='btn btn-danger' onClick={handleDelete}>Apagar</button>
-                    <button type='button' className='btn btn-warning' onClick={handleEdit}>Editar</button>
+                    <button type='button' className='btn btn-danger mx-2' onClick={handleDelete}>Apagar</button>
+                    <button type='button' className='btn btn-warning mx-2' onClick={handleEdit}>Editar</button>
                 </div>
             )}
             {product && isEditing && (
@@ -162,7 +162,7 @@ const ProductSearch = () => {
                                 className='form-control'
                             />
                         </div>
-                        <button type='submit' className='btn btn-primary'>Salvar</button>
+                        <button type='submit' className='btn btn-primary btn-block mt-3'>Salvar</button>
                     </form>
                 </div>
             )}
