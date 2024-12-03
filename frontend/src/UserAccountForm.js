@@ -3,8 +3,9 @@ import axios from 'axios';
 
 const UserAccountForm = () => {
     const [formData, setFormData] = useState({
+        username:'',
         email:'',
-        dataNascimento:'',
+        birthDate:'',
         password: '',
     });
     
@@ -41,6 +42,9 @@ const UserAccountForm = () => {
             
                 if(response.status === 200 && response.data.Token){
                     localStorage.setItem('authToken', response.data.Token);
+                    localStorage.setItem('idUser', response.data.id)
+                    localStorage.setItem('username', response.data.username)
+                    
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
@@ -69,6 +73,17 @@ const UserAccountForm = () => {
             <form onSubmit={handleSubmit} className="form-group">
                 <div className='text-start'>
                     <div>
+                        <label>Nome de Usuário:</label>
+                        <input 
+                            className="form-control"
+                            type="text" 
+                            name="username" 
+                            value={formData.username} 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
+                    <div>
                         <label>Email:</label>
                         <input 
                             className="form-control"
@@ -84,8 +99,8 @@ const UserAccountForm = () => {
                         <input 
                             className="form-control"
                             type="text" 
-                            name="dataNascimento" 
-                            value={formData.dataNascimento} 
+                            name="birthDate" 
+                            value={formData.birthDate} 
                             onChange={handleChange} 
                             required 
                         />

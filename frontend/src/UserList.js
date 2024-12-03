@@ -42,8 +42,11 @@ const UserList = () => {
 
                                 <div className='card-body'>
                                     <h5 className='card-title'>
-                                        ID: {user.id}
+                                        {user.username}
                                     </h5>
+                                    <h6 className='card-subtitle mb-2 text-muted'>
+                                        ID: {user.id}
+                                    </h6>
                                     <h6 className='card-subtitle mb-2 text-muted'>
                                         Email: {user.email}
                                     </h6>

@@ -33,6 +33,7 @@ class CartService {
                 await this.CartItem.create({
                     idUser: idUser,
                     idProduct: idProduct,
+                    nameProduct: product.name,
                     quantity: quantity,
                     partialTotalCost: product.price
                 });

@@ -43,6 +43,9 @@ const ProductList = () => {
             
             if (response.status === 200) {
                 setResponseMessage('Produto adicionado ao carrinho com sucesso!');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 setResponseMessage('Erro ao adicionar produto ao carrinho.');
             }
@@ -66,7 +69,7 @@ const ProductList = () => {
 
                                 <div className='card-body'>
                                     <h5 className='card-title'>
-                                        Nome: {product.name}
+                                        {product.name}
                                     </h5>
                                     <h6 className='card-subtitle mb-2 text-muted'>
                                         ID: {product.idProduct}
@@ -78,8 +81,12 @@ const ProductList = () => {
                                         Estoque: {product.stock}
                                     </h6>
                                 </div>
-                                {authenticated &&
+                                {authenticated && product.stock !== 0 &&
                                     <button className='btn btn-primary btn-block mt-3' onClick={() => handleAddItemToCart(product.idProduct)}>Adicionar ao carrinho</button>
+                                }
+
+                                {authenticated && product.stock === 0 &&
+                                    <div className='mt-3 rounded bg-danger text-white btn'>Produto indisponível</div>
                                 }
                             </div>
                         </div>

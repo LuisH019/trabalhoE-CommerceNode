@@ -36,10 +36,10 @@ function App() {
             Loja Loja
           </h3>
         </button>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ml-3">
-            {authenticated ? (
-              <>
+        {authenticated ? (
+          <>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav ml-3 align-items-center">
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
                 </li>
@@ -55,13 +55,21 @@ function App() {
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('cartItemsList')}>Carrinho</button>
                 </li>
+              </ul>
+            </div>
 
-                <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('logout')}>Sair</button>
-                </li>
-              </>
-            ) : (
-              <>
+            <div className='navbar-text d-flex align-items-center'>
+              <h5>
+                Olá, {localStorage.getItem('username')}
+              </h5>
+
+              <button className="nav-link btn px-2" onClick={() => handleNavClick('logout')}>Sair</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav ml-3 align-items-center">
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('createAccount')}>Criar conta</button>
                 </li>
@@ -69,10 +77,12 @@ function App() {
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('login')}>Login</button>
                 </li>
-              </>
-            )}
-          </ul>
-        </div>
+              </ul>
+            </div>
+          </>
+        )}
+        
+        
       </nav>
 
       {/* Main Content */}
@@ -115,7 +125,7 @@ function App() {
           </div>
         )}
         {currentPage === 'cartItemsList' && (
-          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+          <div>
             <CartItemsList />
           </div>
         )}

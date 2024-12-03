@@ -32,6 +32,32 @@ const CartItemsList = () => {
         fetchCartItems();
     }, []);
 
+    const handleRemoveItem = async (idProduct) => {
+        const token = localStorage.getItem('authToken');
+            
+        if (!token) {
+            setResponseMessage('Usuário não autenticado');
+            return;
+        }
+
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8080/cart/removeItem/?idUser=${localStorage.getItem('idUser')}&idProduct=${idProduct}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }});
+            if (response.data) {
+                setResponseMessage('Item removido com sucesso!');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                setResponseMessage('Item não encontrado');
+            }
+        } catch (error) {
+            setResponseMessage('Erro ao remover item');
+        }
+    };
+
     return (
         <div>
             <h3>Lista de Produtos no Carrinho</h3>
@@ -47,7 +73,7 @@ const CartItemsList = () => {
 
                                 <div className='card-body'>
                                     <h5 className='card-title'>
-                                        ID do Produto: {cartItem.idProduct}
+                                        {cartItem.nameProduct}
                                     </h5>
                                     <h6 className='card-subtitle mb-2 text-muted'>
                                         Quantidade: {cartItem.quantity}
@@ -55,6 +81,7 @@ const CartItemsList = () => {
                                     <h6 className='card-subtitle mb-2 text-muted'>
                                         Total do Produto: {cartItem.partialTotalCost}
                                     </h6>
+                                    <button className='btn btn-danger btn-block mt-3' onClick={() => handleRemoveItem(cartItem.idProduct)}>Remover do carrinho</button>
                                 </div>
                             </div>
                         </div>

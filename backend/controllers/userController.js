@@ -4,9 +4,9 @@ class UserController {
     }
 
     async createUser(req, res){
-        const {email, birthDate, password} = req.body;
+        const {username, email, birthDate, password} = req.body;
         try{
-            const newUser = await this.userService.create(email, birthDate, password);
+            const newUser = await this.userService.create(username, email, birthDate, password);
             res.status(200).json(newUser);
             res.send();
         }

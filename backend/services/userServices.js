@@ -7,16 +7,13 @@ class UserServices{
         this.Cart = CartModel;
     }
 
-    async create (email, birthDate, password){
+    async create (username, email, birthDate, password){
         try{
             const newUser = await this.User.create({
+                username, username,
                 email:email,
                 birthDate:birthDate,
                 password:password
-            });
-
-            const newCart = await this.Cart.create({
-                idUser:newUser.dataValues.id
             });
 
             return newUser? newUser : null;

@@ -29,6 +29,12 @@ module.exports = (sequelize) => {
             onDelete: 'CASCADE'
         },
 
+        nameProduct:{
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: 1
+        },
+
         quantity: {
             type: Sequelize.INTEGER,
             allowNull: false,
