@@ -1,13 +1,13 @@
 const db = require('../models');
 
 class CartService {
-    constructor(CartModel, CartItemModel, ProductModel) {
-        this.Cart = CartModel;
+    constructor(UserModel, CartItemModel, ProductModel) {
+        this.User = UserModel;
         this.CartItem = CartItemModel;
         this.Product = ProductModel;
     }
 
-    async addItem(idCart, idProduct, quantity = 1) {
+    async addItem(idUser, idProduct, quantity = 1) {
         try {
             const product = await this.Product.findByPk(idProduct);
 
@@ -15,13 +15,13 @@ class CartService {
                 throw new Error('Produto não disponível em estoque');
             }
 
-            const cart = await this.Cart.findByPk(idCart);
-            if (!cart) {
-                throw new Error('Carrinho não encontrado');
+            const user = await this.User.findByPk(idUser);
+            if (!user) {
+                throw new Error('Usuário não encontrado');
             }
 
             const existingItem = await this.CartItem.findOne({
-                where: { idCart, idProduct }
+                where: { idUser, idProduct }
             });
 
             if (existingItem) {
@@ -31,7 +31,7 @@ class CartService {
             } 
             else {
                 await this.CartItem.create({
-                    idCart: idCart,
+                    idUser: idUser,
                     idProduct: idProduct,
                     quantity: quantity,
                     partialTotalCost: product.price
@@ -46,9 +46,9 @@ class CartService {
         }
     }
 
-    async findAllItems(idCart) {
+    async findAllItems(idUser) {
         try {
-            const cartItems = await this.CartItem.findAll({where: {idCart:idCart}});
+            const cartItems = await this.CartItem.findAll({where: {idUser:idUser}});
 
             return cartItems? cartItems : null;
         } catch (error) {
@@ -56,10 +56,10 @@ class CartService {
         }
     }
 
-    async removeItem(idCart, idProduct) {
+    async removeItem(idUser, idProduct) {
         try {
             const cartItem = await this.CartItem.findOne({
-                where: { idCart, idProduct }
+                where: { idUser, idProduct }
             });
 
             if (!cartItem) {

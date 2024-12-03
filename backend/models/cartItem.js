@@ -9,12 +9,12 @@ module.exports = (sequelize) => {
             allowNull: false
         },
 
-        idCart: {
+        idUser: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Cart',
-                key: 'idCart'
+                model: 'users',
+                key: 'id'
             },
             onDelete: 'CASCADE'
         },

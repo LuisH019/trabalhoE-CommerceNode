@@ -11,6 +11,8 @@ import ProductDataForm from './ProductDataForm';
 import ProductSearch from './ProductSearch';
 import ProductList from './ProductList';
 
+import CartItemsList from './CartItemsList';
+
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
   const [authenticated, setAuthenticated] = useState(false);
@@ -28,10 +30,14 @@ function App() {
   return (
     <div className="App">
       {/* Bootstrap Navigation Bar */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Loja Loja</a>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light p-3">
+        <button className="nav-link btn" onClick={() => handleNavClick('landing')}> 
+          <h3>
+            Loja Loja
+          </h3>
+        </button>
         <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav ml-3">
             {authenticated ? (
               <>
                 <li className="nav-item">
@@ -44,6 +50,10 @@ function App() {
 
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('searchProduct')}>Procurar produto</button>
+                </li>
+
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('cartItemsList')}>Carrinho</button>
                 </li>
 
                 <li className="nav-item">
@@ -67,45 +77,48 @@ function App() {
 
       {/* Main Content */}
       <div className="container d-flex text-center mt-5 justify-content-center">
-        <div class="w-50 bg-light p-4 border rounded shadow-sm">
-          {currentPage === 'landing' && (
-            <div>
-              <h1 className="display-4">Loja Loja</h1>
-              <ProductList/>
-            </div>
-          )}
-          {currentPage === 'userList' && (
-            <div className="mt-4">
-              <UserList />
-            </div>
-          )}
-          {currentPage === 'createAccount' && (
-            <div className="mt-4">
-              <UserAccountForm />
-            </div>
-          )}
-          {currentPage === 'login' && (
-            <div className="mt-4">
-              <UserLogin />
-            </div>
-          )}
-          {currentPage === 'logout' && (
-            <div className="mt-4">
-              <UserLogout />
-            </div>
-          )}
-          
-          {currentPage === 'newProduct' && (
-            <div className="mt-4">
-              <ProductDataForm />
-            </div>
-          )}
-          {currentPage === 'searchProduct' && (
-            <div className="mt-4">
-              <ProductSearch />
-            </div>
-          )}
-        </div>
+        {currentPage === 'landing' && (
+          <div>
+            <h1 className="display-4">Loja Loja</h1>
+            <ProductList/>
+          </div>
+        )}
+        {currentPage === 'userList' && (
+          <div className="mt-4">
+            <UserList />
+          </div>
+        )}
+        {currentPage === 'createAccount' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <UserAccountForm />
+          </div>
+        )}
+        {currentPage === 'login' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <UserLogin />
+          </div>
+        )}
+        {currentPage === 'logout' && (
+          <div className="mt-4">
+            <UserLogout />
+          </div>
+        )}
+        
+        {currentPage === 'newProduct' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <ProductDataForm />
+          </div>
+        )}
+        {currentPage === 'searchProduct' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <ProductSearch />
+          </div>
+        )}
+        {currentPage === 'cartItemsList' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <CartItemsList />
+          </div>
+        )}
       </div>
     </div>
   );

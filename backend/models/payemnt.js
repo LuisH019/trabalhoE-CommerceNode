@@ -19,16 +19,6 @@ module.exports = (sequelize) => {
             onDelete: 'CASCADE'
         },
 
-        idCart: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'carts',
-                key: 'idCart'
-            },
-            onDelete: 'CASCADE'
-        },
-
         totalCost: {
             type: Sequelize.DECIMAL(10, 2),
             allowNull: false

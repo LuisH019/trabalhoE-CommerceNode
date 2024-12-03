@@ -7,13 +7,11 @@ const ProductList = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const [responseMessage, setResponseMessage] = useState('');
 
-
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         setAuthenticated(token !== null);
 
         const fetchProducts = async () => {
-
             try {
                 const response = await axios.get('http://localhost:8080/products/');
                 setProducts(response.data);
@@ -22,39 +20,48 @@ const ProductList = () => {
             }
         };
         fetchProducts();
-
-        
     }, []);
 
-    const handleAddItemToCart = async (idProduct) =>{
+    const handleAddItemToCart = async (idProduct) => {
         const token = localStorage.getItem('authToken');
-            
+        
         if (!token) {
             setResponseMessage('Usuário não autenticado');
             return;
         }
 
         try {
-            await axios.post(`http://127.0.0.1:8080/cart/addItem?id=${localStorage.getItem('idUser')}&idProduct=${idProduct}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }});
+            const response = await axios.post(
+                `http://127.0.0.1:8080/cart/addItem/?idUser=${localStorage.getItem('idUser')}&idProduct=${idProduct}`,
+                {},
+                {
+                    headers: {
+                        'authorization': `Bearer ${token}`
+                    }
+                }
+            );
             
+            if (response.status === 200) {
+                setResponseMessage('Produto adicionado ao carrinho com sucesso!');
+            } else {
+                setResponseMessage('Erro ao adicionar produto ao carrinho.');
+            }
         } catch (error) {
-            setResponseMessage('Erro ao deletar produto');
+            setResponseMessage('Erro ao adicionar produto ao carrinho.');
         }
-    }
+    };
 
     return (
         <div>
             <h3>Lista de Produtos</h3>
+            {responseMessage && <div className='alert alert-info mt-3'>{responseMessage}</div>}
             {error && <p>{error}</p>}
 
             <div className="container">
                 <div className="row mt-4">
                     {products.map((product) => (
-                        <div className="col-md-6 mb-3" key={product.id}>
-                            <div className='card p-3'>
+                        <div className="col-md-4 mb-3" key={product.id}>
+                            <div className='card p-3 h-100 text-center'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" className="card-img-top w-75 mx-auto d-block" alt='' />
 
                                 <div className='card-body'>
@@ -70,11 +77,10 @@ const ProductList = () => {
                                     <h6 className='card-subtitle mb-2 text-muted'>
                                         Estoque: {product.stock}
                                     </h6>
-
-                                    {authenticated &&
-                                        <button className='btn btn-primary btn-block mt-3' onClick={()=>handleAddItemToCart(product.idProduct)}>Adcionar ao carrinho</button>
-                                    }
                                 </div>
+                                {authenticated &&
+                                    <button className='btn btn-primary btn-block mt-3' onClick={() => handleAddItemToCart(product.idProduct)}>Adicionar ao carrinho</button>
+                                }
                             </div>
                         </div>
                     ))}

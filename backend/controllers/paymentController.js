@@ -4,10 +4,10 @@ class PaymentController {
     }
 
     async paymentByPix (req, res){
-        const {idUser, idCart} = req.query;
+        const {idUser} = req.query;
 
         try{
-            const payment = await this.paymentService.pay(idUser, idCart, "pix");
+            const payment = await this.paymentService.pay(idUser, "pix");
 
             res.status(200).json(payment);
             res.send();
@@ -18,10 +18,10 @@ class PaymentController {
     }
 
     async paymentByCreditCard (req, res){
-        const {idUser, idCart} = req.query;
+        const {idUser} = req.query;
 
         try{
-            const payment = await this.paymentService.pay(idUser, idCart, "creditCard");
+            const payment = await this.paymentService.pay(idUser, "creditCard");
 
             res.status(200).json(payment);
             res.send();

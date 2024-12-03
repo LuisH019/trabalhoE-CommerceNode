@@ -36,7 +36,7 @@ const UserList = () => {
             <div className="container">
                 <div className="row mt-4">
                     {users.map((user) => (
-                        <div className="col-md-6 mb-3" key={user.id}>
+                        <div className="col-md-4 mb-3" key={user.id}>
                             <div className='card p-3'>
                                 <img src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" className="card-img-top w-75 mx-auto d-block" alt='' />
 

@@ -65,7 +65,7 @@ const UserAccountForm = () => {
 
     return (
         <div className="user-account-form">
-            <h2>Cadstre sua conta</h2>
+            <h2>Cadastre sua conta</h2>
             <form onSubmit={handleSubmit} className="form-group">
                 <div className='text-start'>
                     <div>

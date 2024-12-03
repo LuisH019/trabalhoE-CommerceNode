@@ -4,10 +4,10 @@ class CartController {
     }
 
     async addItem (req, res){
-        const {idCart, idProduct} = req.query;
+        const {idUser, idProduct} = req.query;
 
         try{
-            await this.cartService.addItem(idCart, idProduct);
+            await this.cartService.addItem(idUser, idProduct);
 
             res.status(200);
             res.send();
@@ -18,10 +18,10 @@ class CartController {
     }
 
     async findAllItems (req, res){
-        const {idCart} = req.query;
+        const {idUser} = req.query;
 
         try{
-            const cartItems = await this.cartService.findAllItems(idCart);
+            const cartItems = await this.cartService.findAllItems(idUser);
             
             res.status(200).json(cartItems);
             res.send();
@@ -32,10 +32,10 @@ class CartController {
     }
 
     async removeItem (req, res){
-        const {idCart, idProduct} = req.query;
+        const {idUser, idProduct} = req.query;
 
         try{
-            await this.cartService.removeItem(idCart, idProduct);
+            await this.cartService.removeItem(idUser, idProduct);
             
             res.status(200).json();
             res.send();

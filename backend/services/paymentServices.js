@@ -6,15 +6,15 @@ class PaymentService {
         this.CartItem = CartItemModel
     }
 
-    async pay(idUser, idCart, paymentMethod) {
+    async pay(idUser, paymentMethod) {
         try {
-            const cartItems = await this.CartItem.findAll({where: {idCart:idCart}});
+            const cartItems = await this.CartItem.findAll({where: {idUser:idUser}});
 
-            if (!idCart || !cartItems) {
+            if (!idUser || !cartItems) {
                 throw new Error('Carrinho vazio ou não encontrado');
             }
             
-            const totalCost = await this.CartItem.sum('partialTotalCost', {where: {idCart:idCart}});
+            const totalCost = await this.CartItem.sum('partialTotalCost', {where: {idUser:idUser}});
 
             if (paymentMethod !== 'pix' && paymentMethod !== 'creditCard') {
                 throw new Error('Método de pagamento inválido');
@@ -24,13 +24,12 @@ class PaymentService {
 
             const newPayment = await this.Payment.create({
                 idUser,
-                idCart,
                 totalCost,
                 paymentMethod,
                 status: paymentStatus
             });
             
-            await this.CartItem.destroy({where: {idCart:idCart}});
+            await this.CartItem.destroy({where: {idUser:idUser}});
 
             return newPayment;
         } 

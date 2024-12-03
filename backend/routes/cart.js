@@ -8,7 +8,7 @@ const db = require('../models');
 const CartService = require('../services/cartServices');
 const CartController = require('../controllers/cartController');
 
-const cartService = new CartService(db.Cart, db.CartItem, db.Product);
+const cartService = new CartService(db.User, db.CartItem, db.Product);
 const cartController = new CartController(cartService);
 
 router.get('/', auth.verifyToken, function(req, res) {
