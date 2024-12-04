@@ -38,7 +38,7 @@ class SupplierController {
         const { id } = req.query;
 
         try {
-            const Supplier = await this.supplierService.update(id, name, description, price, stock);
+            const Supplier = await this.supplierService.update(id, name);
             res.status(200).json(Supplier);
         } catch (error) {
             res.status(500).json({ error: 'Ocorreu um erro ao editar o produto.' });

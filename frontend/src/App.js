@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 import UserAccountForm from './user/UserAccountForm';
 import UserLogin from './user/UserLogin';
@@ -45,27 +46,60 @@ function App() {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav ml-3 align-items-center">
                 <li className="nav-item">
-                  <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
+                  <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Usuários
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
 
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('newProduct')}>Novo produto</button>
+                  <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Produtos
+                    </button>
+
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button className="nav-link btn" onClick={() => handleNavClick('newProduct')}>Novo produto</button>
+                      </li>
+
+                      <li>
+                        <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('productList')}>Lista de produtos</button>
+                      </li>
+                      
+                      <li>
+                        <button className="nav-link btn" onClick={() => handleNavClick('searchProduct')}>Procurar produto</button>
+                      </li>                  
+                    </ul>
+                  </div>
                 </li>
 
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('searchProduct')}>Procurar produto</button>
-                </li>
+                  <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Fornecedores
+                    </button>
 
-                <li className="nav-item">
-                  <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('suppliersList')}>Lista de fornecedores</button>
-                </li>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button className="nav-link btn" onClick={() => handleNavClick('newSupplier')}>Novo fornecedor</button>
+                      </li> 
 
-                <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('newSupplier')}>Novo fornecedor</button>
-                </li>
+                      <li>
+                        <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('suppliersList')}>Lista de fornecedores</button>
+                      </li>
 
-                <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('searchSupplier')}>Procurar fornecedor</button>
+                      <li>
+                        <button className="nav-link btn" onClick={() => handleNavClick('searchSupplier')}>Procurar fornecedor</button>
+                      </li>        
+                    </ul>
+                  </div>
                 </li>
 
                 <li className="nav-item">
@@ -75,11 +109,17 @@ function App() {
             </div>
 
             <div className='navbar-text d-flex align-items-center'>
-              <h5>
-                Olá, {localStorage.getItem('username')}
-              </h5>
-
-              <button className="nav-link btn px-2" onClick={() => handleNavClick('logout')}>Sair</button>
+              <ul className="navbar-nav ml-3 align-items-center">
+                <li>
+                  <h5 className="my-0 mx-3">
+                    Olá, {localStorage.getItem('username')}
+                  </h5>
+                </li>
+                
+                <li>
+                  <button className="nav-link btn bg-primary text-white  px-4" onClick={() => handleNavClick('logout')}>Sair</button>
+                </li>
+              </ul>
             </div>
           </>
         ) : (
@@ -104,14 +144,14 @@ function App() {
       {/* Main Content */}
       <div className="container d-flex text-center mt-5 justify-content-center">
         {currentPage === 'landing' && (
-          <div>
+          <div className="mt-4 w-75 bg-light p-4 border rounded shadow-sm">
             <h1 className="display-4">Loja Loja</h1>
             <ProductList/>
           </div>
         )}
 
         {currentPage === 'userList' && (
-          <div className="mt-4">
+          <div className="mt-4 w-75 bg-light p-4 border rounded shadow-sm">
             <UserList />
           </div>
         )}
@@ -119,6 +159,12 @@ function App() {
         {currentPage === 'newProduct' && (
           <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
             <ProductDataForm />
+          </div>
+        )}
+
+        {currentPage === 'productList' && (
+          <div className="mt-4 w-75 bg-light p-4 border rounded shadow-sm">
+            <ProductList/>
           </div>
         )}
 
@@ -141,13 +187,13 @@ function App() {
         )}
 
         {currentPage === 'suppliersList' && (
-          <div>
+          <div className="mt-4 w-75 bg-light p-4 border rounded shadow-sm">
             <SuppliersList />
           </div>
         )}
 
         {currentPage === 'cartItemsList' && (
-          <div>
+          <div className="mt-4 w-75 bg-light p-4 border rounded shadow-sm">
             <CartItemsList />
           </div>
         )}
