@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
-import UserAccountForm from './UserAccountForm';
-import UserLogin from './UserLogin';
-import UserLogout from './UserLogout';
-import UserList from './UserList';
+import UserAccountForm from './user/UserAccountForm';
+import UserLogin from './user/UserLogin';
+import UserLogout from './user/UserLogout';
+import UserList from './user/UserList';
 
-import ProductDataForm from './ProductDataForm';
-import ProductSearch from './ProductSearch';
-import ProductList from './ProductList';
+import ProductDataForm from './product/ProductDataForm';
+import ProductSearch from './product/ProductSearch';
+import ProductList from './product/ProductList';
 
-import CartItemsList from './CartItemsList';
+import SupplierDataForm from './supplier/SupplierDataForm';
+import SupplierSearch from './supplier/SupplierSearch';
+import SuppliersList from './supplier/SuppliersList';
+
+import CartItemsList from './cart/CartItemsList';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -41,7 +45,7 @@ function App() {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav ml-3 align-items-center">
                 <li className="nav-item">
-                  <button className="nav-link btn" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
+                  <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('userList')}>Lista de usuários</button>
                 </li>
 
                 <li className="nav-item">
@@ -50,6 +54,18 @@ function App() {
 
                 <li className="nav-item">
                   <button className="nav-link btn" onClick={() => handleNavClick('searchProduct')}>Procurar produto</button>
+                </li>
+
+                <li className="nav-item">
+                  <button className="nav-link btn dropdown-item" onClick={() => handleNavClick('suppliersList')}>Lista de fornecedores</button>
+                </li>
+
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('newSupplier')}>Novo fornecedor</button>
+                </li>
+
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={() => handleNavClick('searchSupplier')}>Procurar fornecedor</button>
                 </li>
 
                 <li className="nav-item">
@@ -93,24 +109,10 @@ function App() {
             <ProductList/>
           </div>
         )}
+
         {currentPage === 'userList' && (
           <div className="mt-4">
             <UserList />
-          </div>
-        )}
-        {currentPage === 'createAccount' && (
-          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
-            <UserAccountForm />
-          </div>
-        )}
-        {currentPage === 'login' && (
-          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
-            <UserLogin />
-          </div>
-        )}
-        {currentPage === 'logout' && (
-          <div className="mt-4">
-            <UserLogout />
           </div>
         )}
         
@@ -119,14 +121,51 @@ function App() {
             <ProductDataForm />
           </div>
         )}
+
         {currentPage === 'searchProduct' && (
           <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
             <ProductSearch />
           </div>
         )}
+
+        {currentPage === 'newSupplier' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <SupplierDataForm />
+          </div>
+        )}
+
+        {currentPage === 'searchSupplier' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <SupplierSearch />
+          </div>
+        )}
+
+        {currentPage === 'suppliersList' && (
+          <div>
+            <SuppliersList />
+          </div>
+        )}
+
         {currentPage === 'cartItemsList' && (
           <div>
             <CartItemsList />
+          </div>
+        )}
+
+        {currentPage === 'logout' && (
+          <div className="mt-4">
+            <UserLogout />
+          </div>
+        )}
+
+        {currentPage === 'createAccount' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <UserAccountForm />
+          </div>
+        )}
+        {currentPage === 'login' && (
+          <div className="mt-4 w-50 bg-light p-4 border rounded shadow-sm">
+            <UserLogin />
           </div>
         )}
       </div>

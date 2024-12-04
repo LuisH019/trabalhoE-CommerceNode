@@ -13,6 +13,8 @@ var usersRouter = require('./routes/users'); //para a rota do users
 var productsRouter = require('./routes/products'); //para a rota do products
 var cartRouter = require('./routes/cart'); //para a rota do cart
 var paymentRouter = require('./routes/payment'); //para a rota do payment
+var supplierRouter = require('./routes/suppliers'); //para a rota do supplier
+
 
 var app = express(); //ativa a api com o express
 
@@ -40,6 +42,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter); //cria a rota do products
 app.use('/cart', cartRouter); //cria a rota do cart
 app.use('/payment', paymentRouter); //cria a rota do payment
+app.use('/suppliers', supplierRouter); //cria a rota do payment
 
 // Sincronizando o Sequelize (em dev)
 if (process.env.NODE_ENV !== 'production') {
